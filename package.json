@@ -1,0 +1,19 @@
+{
+  "name": "ipfs-webpack-plugin",
+  "description": "Webpack plugin for loading assets via IPFS in the browser",
+  "version": "0.1.0",
+  "main": "ipfs-webpack-plugin.js",
+  "author": "Victor Bjelkholm <victorbjelkholm@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "cd example/ && webpack"
+  },
+  "dependencies": {
+    "ipfs": "^0.24.1",
+    "webpack": "^2.6.1"
+  },
+  "devDependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}
