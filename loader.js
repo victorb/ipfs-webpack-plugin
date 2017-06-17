@@ -69,6 +69,7 @@ function bootstrap (hash, timeout) {
       }
     })
     log('Starting load of application ' + hash)
+    console.time('application-load')
     node.files.cat(hash, (err, res) => {
       const contents = []
       log('Got contents stream')
@@ -78,10 +79,13 @@ function bootstrap (hash, timeout) {
       })
       res.on('end', () => {
         log('Stream finished, executing contents')
+        console.timeEnd('application-load')
         const fullContents = contents.join('')
         spinnerContainer.remove()
+        console.time('application-eval')
         // eval is not the greatest, but at least we're sure we got the right content :)
         window.eval(fullContents)
+        console.timeEnd('application-eval')
       })
     })
   })
