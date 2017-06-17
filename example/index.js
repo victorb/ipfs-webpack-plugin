@@ -21,4 +21,4 @@ const Application = React.createClass({
   }
 })
 
-ReactDOM.render(React.createElement(Application), document.getElementById('root'))
+ReactDOM.render(React.createElement(Application), document.body)

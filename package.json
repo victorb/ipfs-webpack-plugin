@@ -9,6 +9,7 @@
     "build": "cd example/ && webpack"
   },
   "dependencies": {
+    "html-webpack-plugin": "^2.28.0",
     "ipfs": "^0.24.1",
     "webpack": "^2.6.1"
   },

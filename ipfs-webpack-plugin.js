@@ -5,6 +5,8 @@ const IPFS = require('ipfs')
 // TODO - doesn't exit properly, ipfs node is keeping process running?
 // TODO - get to work in Chrome "Uncaught RangeError: Array buffer allocation failed"
 
+console.log('hey')
+
 function IPFSWebpackPlugin (options) {
   // TODO allow to inject build-ipfs-node options and loader-ipfs-node options
   // TODO allow disabling the spinner
@@ -22,6 +24,8 @@ function addFile (pathToAdd, transform) {
   }
 }
 
+// need to integrate with webpack-html-plugin instead
+
 IPFSWebpackPlugin.prototype.apply = function (compiler) {
   // Here the compiler beings emitting assets, add our loader + ipfs node
   compiler.plugin('emit', (params, callback) => {
@@ -31,8 +35,16 @@ IPFSWebpackPlugin.prototype.apply = function (compiler) {
   })
   // The compiler is done with all generatation, time to modify the loader with the correct hash
   // TODO should handle all assets, currently just one
-  compiler.plugin('done', (stats) => {
-    const { outputOptions } = stats.compilation
+  compiler.plugin('done', (stats, callback) => {
+    const { outputOptions, assets } = stats.compilation
+    const assetsToAdd = Object.keys(assets).filter((item) => {
+      return item !== 'loader.js' && item !== 'ipfs.js'
+    })
+    Promise.all(assetsToAdd.map(() => {
+
+    })).then(callback)
+    console.log(assetsToAdd)
+    console.log(outputOptions)
     const fileToAdd = path.resolve(outputOptions.path, outputOptions.filename)
     const node = new IPFS({
       repo: path.resolve(__dirname, '.ipfs-repo')
