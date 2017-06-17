@@ -62,12 +62,12 @@ function bootstrap (hash, timeout) {
   node.on('ready', () => {
     spinner.style.animationDuration = '1s'
     // TODO should only happen if running in dev-mode
-    try {
-      node.swarm.connect('/ip4/127.0.0.1/tcp/4003/ws/ipfs/QmPDoRhjnzf6UFDmgDYv9sSwtUjCCvuN2WurERPJTa7Hhf')
-    } catch (err) {
-      log('failed connecting to local node')
-      log(err)
-    }
+    node.swarm.connect('/ip4/127.0.0.1/tcp/4003/ws/ipfs/Qmev5eJKon6YE2Eqs46e9HpmtBRjXfH9FvF4px2kCkEzMp', (err) => {
+      if (err) {
+        log('failed connecting to local node')
+        log(err)
+      }
+    })
     log('Starting load of application ' + hash)
     node.files.cat(hash, (err, res) => {
       const contents = []
